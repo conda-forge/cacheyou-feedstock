@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/cacheyou-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/cacheyou-{{ version }}.tar.gz
   sha256: 7e408f15f4978fea2247734b308621f75f7fe169b461679519c72e8a85d61d5d
 
 build:
@@ -14,15 +14,15 @@ build:
     - doesitcache = cacheyou._cmd:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pdm-backend
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - msgpack-python >=0.5.2
     - requests
 
@@ -34,6 +34,7 @@ test:
     - doesitcache --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/frostming/cacheyou
